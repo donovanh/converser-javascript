@@ -1,3 +1,5 @@
+// Copyright 2012  converser.io
+
 var converser = converser || {};
 
 converser.api = {
