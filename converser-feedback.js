@@ -3,7 +3,7 @@ var converser = converser || {};
 converser.api = {
 
   baseUrl: 'https://api.converser.io',
-  appId: 'c8dbda90-66a5-012f-d243-12313d1465dd',      // put your app API key here!
+  appId: 'YOUR API KEY GOES HERE!',      // put your app API key here!
 
   // Subscribe an identity to the feedback service 
   // It's best if the identity is an email address, but any identifier will work
