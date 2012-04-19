@@ -18,16 +18,24 @@ converser.api = {
   //
   // Returns true on success, false on failure
   //
-  subscribe: function(identity) {
+  subscribe: function(identity, device) {
+  
+    // Check for whether device has been specified
+    if (typeof device == undefined) { device = null; }
+  
+    if (!device) {
+      device = {
+        os: window.device.name,          // phonegap
+        version: window.device.version,  // phonegap - don't send if ios!
+        model: window.device.name        // phonegap
+      };
+    }
+    
     var data = {
       ident: identity,
-      device: {
-        os: device.name,          // phonegap
-        version: device.version,  // phonegap - don't send if ios!
-        model: device.name        // phonegap 
-      }
+      device: device
     };
-
+    
     var response = converser.api.post('/subscribe', JSON.stringify(data));
     
     if (response.status == 201) {
@@ -37,7 +45,7 @@ converser.api = {
     // If there's an error, there is error text available
     // in the JSON response ->  { "error_text" : "Oh Noes!"}
 
-    return (response.status != 200 && response.status != 201);
+    return (response.status == 200 || response.status == 201);
   },
   
   // Send feedback from this device! Parameters are
@@ -61,7 +69,7 @@ converser.api = {
     
     // If there's an error, there is error text available
     // in the JSON response ->  { "error_text" : "Oh Noes!"}
-    return (response.status != 200 && response.status != 201);
+    return (response.status == 200 || response.status == 201);
   },
 
   // Utility function - get the stored device identity
